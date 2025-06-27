@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { TypingTestSchema } from "../../src/validation-schema/typing-test";
+import { TypingTestSchema } from "./typing-test";
 
 describe("TypingTestSchema", () => {
 	it.each([

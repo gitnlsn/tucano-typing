@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PressedKeySchema } from "../../src/validation-schema/pressed-key";
+import { PressedKeySchema } from "./pressed-key";
 
 describe("PressedKeySchema", () => {
 	it.each([
