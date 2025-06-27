@@ -1,9 +1,9 @@
-import { afterAll, describe, expect, it } from "vitest";
-import { generateTypingTest } from "./generate-typing-test";
 import { PrismaClient } from "@prisma/client";
+import { afterAll, describe, expect, it } from "vitest";
 import { TestingFactory } from "~/tests/TestingFactory";
+import { generateTypingTest } from "./generate-typing-test";
 
-describe("generateTypingTest", () => {
+describe("generateTypingTest", async () => {
 	const prismaClient = new PrismaClient();
 	const testingFactory = new TestingFactory(prismaClient);
 
@@ -11,16 +11,42 @@ describe("generateTypingTest", () => {
 		await testingFactory.cleanup();
 	});
 
-	it("should generate a typing test", async () => {
-		const mockedUser = await testingFactory.createUser();
+	it.skip(
+		"should generate a typing test",
+		async () => {
+			// SKIPED so that it wont consume tokens in google api
+			const mockedUser = await testingFactory.createUser();
 
-		const typingTest = generateTypingTest({
-			prismaClient,
-			userId: mockedUser.id,
-		});
+			const typingTest = await generateTypingTest({
+				prismaClient,
+				userId: mockedUser.id,
 
-		console.log({ typingTest });
+				paragraphsQuantity: 1,
+			});
 
-		expect(typingTest).toBeDefined();
-	});
+			expect(typingTest).toBeDefined();
+		},
+		{ timeout: 60000 },
+	);
+
+	it.skip(
+		"should generate a typing test in portuguese",
+		async () => {
+			// SKIPED so that it wont consume tokens in google api
+			const mockedUser = await testingFactory.createUser();
+
+			const typingTest = await generateTypingTest({
+				prismaClient,
+				userId: mockedUser.id,
+
+				language: "portuguese",
+				paragraphsQuantity: 1,
+			});
+
+			console.log({ typingTest });
+
+			expect(typingTest).toBeDefined();
+		},
+		{ timeout: 60000 },
+	);
 });

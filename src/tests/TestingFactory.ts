@@ -1,35 +1,35 @@
-import type { PrismaClient } from "@prisma/client";
 import { randomUUID } from "node:crypto";
+import type { PrismaClient } from "@prisma/client";
 
 export class TestingFactory {
-    private mockedData: {
-        userIds: string[]
-    } = {
-            userIds: []
-        }
+	private mockedData: {
+		userIds: string[];
+	} = {
+		userIds: [],
+	};
 
-    constructor(private readonly prismaClient: PrismaClient) { }
+	constructor(private readonly prismaClient: PrismaClient) {}
 
-    async createUser() {
-        const user = await this.prismaClient.user.create({
-            data: {
-                email: `test${randomUUID()}@test.com`,
-                name: "Test User",
-            },
-        });
+	async createUser() {
+		const user = await this.prismaClient.user.create({
+			data: {
+				email: `test${randomUUID()}@test.com`,
+				name: "Test User",
+			},
+		});
 
-        this.mockedData.userIds.push(user.id);
+		this.mockedData.userIds.push(user.id);
 
-        return user
-    }
+		return user;
+	}
 
-    async cleanup() {
-        for (const userId of this.mockedData.userIds) {
-            await this.prismaClient.user.delete({
-                where: {
-                    id: userId,
-                },
-            });
-        }
-    }
+	async cleanup() {
+		for (const userId of this.mockedData.userIds) {
+			await this.prismaClient.user.delete({
+				where: {
+					id: userId,
+				},
+			});
+		}
+	}
 }

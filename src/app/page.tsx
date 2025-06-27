@@ -28,7 +28,9 @@ export default async function Home() {
 			<Card className="w-full max-w-md">
 				<CardHeader className="text-center">
 					<H1 className="text-gray-900">Tucano Typing</H1>
-					<Lead className="text-gray-600">Melhore suas habilidades de digitação</Lead>
+					<Lead className="text-gray-600">
+						Melhore suas habilidades de digitação
+					</Lead>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					{session ? (

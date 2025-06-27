@@ -11,6 +11,7 @@
 		"db:update": "npm run db:push && npm run db:generate",
 		"db:studio": "prisma studio",
 		"dev": "next dev --turbo",
+		"prisma:generate": "npm run db:generate",
 		"preview": "next build && next start",
 		"start": "next start",
 		"test": "vitest run",
@@ -35,7 +36,7 @@
 		"next-auth": "5.0.0-beta.25",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"servers-only": "^0.0.1",
+		"server-only": "^0.0.1",
 		"superjson": "^2.2.1",
 		"tailwind-merge": "^3.3.1",
 		"zod": "^3.24.2"
