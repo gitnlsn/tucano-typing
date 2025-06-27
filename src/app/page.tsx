@@ -1,7 +1,13 @@
-import { auth, signIn, signOut } from "~/server/auth";
 import { redirect } from "next/navigation";
 import { Button } from "~/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "~/components/ui/card";
+import { auth, signIn, signOut } from "~/server/auth";
 
 export default async function Home() {
 	const session = await auth();
@@ -17,29 +23,32 @@ export default async function Home() {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+		<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
 			<Card className="w-full max-w-md">
 				<CardHeader className="text-center">
-					<CardTitle className="text-3xl font-bold text-gray-900">
+					<CardTitle className="font-bold text-3xl text-gray-900">
 						Tucano Typing
 					</CardTitle>
-					<CardDescription className="text-lg text-gray-600">
+					<CardDescription className="text-gray-600 text-lg">
 						Melhore suas habilidades de digitação
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					{session ? (
 						<>
-							<div className="text-center mb-4">
-								<p className="text-sm text-gray-600">
-									Bem-vindo, <span className="font-semibold">{session.user?.name}</span>!
+							<div className="mb-4 text-center">
+								<p className="text-gray-600 text-sm">
+									Bem-vindo,{" "}
+									<span className="font-semibold">{session.user?.name}</span>!
 								</p>
 							</div>
 							<div className="space-y-3">
-								<form action={async () => {
-									"use server";
-									redirect("/typing-test");
-								}}>
+								<form
+									action={async () => {
+										"use server";
+										redirect("/typing-test");
+									}}
+								>
 									<Button type="submit" className="w-full" size="lg">
 										Começar Teste de Digitação
 									</Button>
