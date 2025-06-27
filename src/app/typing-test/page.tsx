@@ -2,7 +2,7 @@
 
 import { api } from "~/trpc/react";
 
-export default async function TypingTestPage() {
+export default function TypingTestPage() {
 	const { data, isPending, error } = api.magic.generateTypingTest.useQuery(
 		undefined,
 		{

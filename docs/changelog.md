@@ -1,5 +1,14 @@
 # Changelog
 
+## [2025-01-27 17:15]
+
+### Modified
+- **Home Page Refactoring**: Refactored home page to use UI components from typography module
+  - Replaced custom divs and HTML tags with H1, Lead, and Muted components
+  - Improved consistency with design system by using standardized typography components
+  - Maintained same visual appearance while improving code maintainability
+  - Removed redundant CardTitle and CardDescription components in favor of direct typography usage
+
 ## [2025-01-27 17:00]
 
 ### Added

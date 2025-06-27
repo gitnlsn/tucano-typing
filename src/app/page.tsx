@@ -7,6 +7,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "~/components/ui/card";
+import { H1, Lead, Muted } from "~/components/ui/typography";
 import { auth, signIn, signOut } from "~/server/auth";
 
 export default async function Home() {
@@ -26,21 +27,17 @@ export default async function Home() {
 		<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
 			<Card className="w-full max-w-md">
 				<CardHeader className="text-center">
-					<CardTitle className="font-bold text-3xl text-gray-900">
-						Tucano Typing
-					</CardTitle>
-					<CardDescription className="text-gray-600 text-lg">
-						Melhore suas habilidades de digitação
-					</CardDescription>
+					<H1 className="text-gray-900">Tucano Typing</H1>
+					<Lead className="text-gray-600">Melhore suas habilidades de digitação</Lead>
 				</CardHeader>
 				<CardContent className="space-y-4">
 					{session ? (
 						<>
 							<div className="mb-4 text-center">
-								<p className="text-gray-600 text-sm">
+								<Muted className="text-gray-600">
 									Bem-vindo,{" "}
 									<span className="font-semibold">{session.user?.name}</span>!
-								</p>
+								</Muted>
 							</div>
 							<div className="space-y-3">
 								<form

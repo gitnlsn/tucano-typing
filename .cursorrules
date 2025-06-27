@@ -4,3 +4,4 @@
 - always update changelog.md in docs folder:
     - set timestampt
     - describe the modification made
+- always prefer react components from ui folder instead of personalized divs and html tags
