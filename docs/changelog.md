@@ -1,5 +1,22 @@
 # Changelog
 
+## [2025-01-27 16:45]
+
+### Added
+- **Typography Components**: Created comprehensive typography component library based on shadcn/ui
+  - Added H1, H2, H3, H4 components for headings with proper styling and scroll margins
+  - Added P component for paragraphs with consistent spacing
+  - Added Blockquote component for quoted text with left border styling
+  - Added Table components (Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableCaption) for structured data display
+  - Added List component for unordered lists with proper indentation
+  - Added InlineCode component for code snippets with background styling
+  - Added Lead component for introductory text with muted styling
+  - Added Large component for emphasized text
+  - Added Small component for fine print text
+  - Added Muted component for secondary text with reduced opacity
+  - All components follow consistent naming convention without "Typography" prefix
+  - Components are fully typed with React.ComponentProps and support className customization
+
 ## [2025-01-27 15:30]
 
 ### Modified
