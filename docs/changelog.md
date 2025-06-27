@@ -1,5 +1,17 @@
 # Changelog
 
+## [2025-01-27 17:00]
+
+### Added
+- **Home Page with Authentication**: Implemented comprehensive home page with Google authentication integration
+  - Added conditional UI based on user authentication status
+  - Implemented Google sign-in with redirect to typing-test page
+  - Added sign-out functionality for authenticated users
+  - Created "Test" button for unauthenticated users that triggers sign-in with redirect
+  - Added modern UI with gradient background, card layout, and responsive design
+  - Integrated with NextAuth.js for seamless authentication flow
+  - Added server actions for handling authentication operations
+
 ## [2025-01-27 16:45]
 
 ### Added
