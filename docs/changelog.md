@@ -1,5 +1,14 @@
 # Changelog
 
+## [2025-01-27 15:30]
+
+### Modified
+- **PressedKeySchema**: Added validation for key field to only allow specific characters
+  - Restricted key input to: a-z, A-Z, 0-9, comma, dot, colon, question mark, and exclamation mark
+  - Added regex pattern validation with descriptive error message
+  - Updated test suite with comprehensive validation tests for valid and invalid characters
+  - Enhanced test coverage for edge cases like empty strings and multiple characters
+
 ## [2025-01-27]
 
 ### Modified

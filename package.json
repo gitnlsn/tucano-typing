@@ -8,6 +8,7 @@
 		"check": "biome check --write --unsafe .",
 		"db:generate": "prisma generate",
 		"db:push": "prisma db push",
+		"db:update": "npm run db:push && npm run db:generate",
 		"db:studio": "prisma studio",
 		"dev": "next dev --turbo",
 		"preview": "next build && next start",
@@ -17,6 +18,7 @@
 		"validate": "npm run check && npm run typecheck && npm run build && npm run test"
 	},
 	"dependencies": {
+		"@ai-sdk/google": "^1.2.19",
 		"@auth/prisma-adapter": "^2.7.2",
 		"@prisma/client": "^6.5.0",
 		"@t3-oss/env-nextjs": "^0.12.0",
@@ -24,6 +26,7 @@
 		"@trpc/client": "^11.0.0",
 		"@trpc/react-query": "^11.0.0",
 		"@trpc/server": "^11.0.0",
+		"ai": "^4.3.16",
 		"next": "^15.2.3",
 		"next-auth": "5.0.0-beta.25",
 		"react": "^19.0.0",

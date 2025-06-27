@@ -13,6 +13,7 @@ datasource db {
     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url      = env("DATABASE_URL")
 }
+
 // Necessary for Next auth
 model Account {
     id                       String  @id @default(cuid())
@@ -49,6 +50,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+
+    typingTests TypingTest[]
 }
 
 model VerificationToken {
@@ -57,4 +60,25 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model PressedKey {
+    id String @id @default(cuid())
+
+    timestamp DateTime
+    key       String
+
+    test   TypingTest @relation(fields: [testId], references: [id], onDelete: Cascade)
+    testId String
+}
+
+model TypingTest {
+    id String @id @default(cuid())
+
+    text String @db.Text // the text the user types in test
+
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String
+
+    pressedKeys PressedKey[]
 }
