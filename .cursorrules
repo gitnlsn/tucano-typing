@@ -1,0 +1,6 @@
+# Instructions
+
+- always prefer vitest over jest
+- always update changelog.md in docs folder:
+    - set timestampt
+    - describe the modification made
