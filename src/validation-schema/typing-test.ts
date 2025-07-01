@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { PressedKeySchema } from "./pressed-key";
+import { pressedKeySchema } from "./pressed-key";
 
-export const TypingTestSchema = z.object({
+export const typingTestSchema = z.object({
 	text: z.string().min(1),
 
-	pressedKeys: z.array(PressedKeySchema),
+	pressedKeys: z.array(pressedKeySchema),
 });
 
-export type TypingTest = z.infer<typeof TypingTestSchema>;
+export type TypingTest = z.infer<typeof typingTestSchema>;

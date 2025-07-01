@@ -123,3 +123,25 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+@keyframes underscore-animation {
+	0% {
+		border-bottom-width: 2px;
+		border-color: transparent;
+	}
+	50% {
+		border-bottom-width: 2px;
+		border-color: currentColor;
+	}
+	to {
+		border-bottom-width: 2px;
+		border-color: transparent;
+	}
+}
+
+.animate-underscore {
+	animation-name: underscore-animation;
+	animation-duration: 2s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}

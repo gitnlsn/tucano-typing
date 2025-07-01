@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PressedKeySchema } from "./pressed-key";
+import { pressedKeySchema } from "./pressed-key";
 
 describe("PressedKeySchema", () => {
 	it.each([
@@ -34,7 +34,7 @@ describe("PressedKeySchema", () => {
 			key: key,
 		};
 
-		const result = PressedKeySchema.safeParse(pressedKey);
+		const result = pressedKeySchema.safeParse(pressedKey);
 		expect(result.success).toBe(true);
 	});
 
@@ -44,7 +44,7 @@ describe("PressedKeySchema", () => {
 			key: "",
 		};
 
-		const result = PressedKeySchema.safeParse(pressedKey);
+		const result = pressedKeySchema.safeParse(pressedKey);
 		expect(result.success).toBe(false);
 	});
 
@@ -54,7 +54,7 @@ describe("PressedKeySchema", () => {
 			key: "ab",
 		};
 
-		const result = PressedKeySchema.safeParse(pressedKey);
+		const result = pressedKeySchema.safeParse(pressedKey);
 		expect(result.success).toBe(false);
 	});
 });

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { TypingTestSchema } from "./typing-test";
+import { typingTestSchema } from "./typing-test";
 
 describe("TypingTestSchema", () => {
 	it.each([
@@ -22,7 +22,7 @@ describe("TypingTestSchema", () => {
 			],
 		},
 	])("should be valid for a valid typing test", (typingTest) => {
-		const result = TypingTestSchema.safeParse(typingTest);
+		const result = typingTestSchema.safeParse(typingTest);
 		expect(result.success).toBe(true);
 	});
 });
