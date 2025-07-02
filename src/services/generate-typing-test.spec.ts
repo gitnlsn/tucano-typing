@@ -20,8 +20,6 @@ describe("generateTypingTest", async () => {
 			const typingTest = await generateTypingTest({
 				prismaClient,
 				userId: mockedUser.id,
-
-				paragraphsQuantity: 1,
 			});
 
 			expect(typingTest).toBeDefined();
@@ -40,7 +38,6 @@ describe("generateTypingTest", async () => {
 				userId: mockedUser.id,
 
 				language: "portuguese",
-				paragraphsQuantity: 1,
 			});
 
 			console.log({ typingTest });
