@@ -2,7 +2,7 @@ import { cva } from "class-variance-authority";
 import { cn } from "~/lib/utils";
 import type { Status } from "./status";
 
-const characterVariants = cva("m-[1px] p-[3px] font-mono", {
+const characterVariants = cva("m-[1px] p-[3px] font-mono text-2xl leading-14", {
 	variants: {
 		status: {
 			success: "bg-green-100 text-green-800",

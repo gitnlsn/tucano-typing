@@ -14,6 +14,8 @@ export interface ParseTextWithPressedKeysOutput {
 	}>;
 	metrics: {
 		typingIndex: number;
+
+		totalWordsCount: number;
 		remainingWordsCount: number;
 
 		characterAccuracy: number;
@@ -98,6 +100,7 @@ export const parseTextWithPressedKeys = ({
 	// 2. Calculate remaining words
 	const typingIndex = pressedKeys.length;
 
+	const totalWordsCount = text.split(" ").length;
 	const remainingWords = parsedWords.filter((word) => word.status === "idle");
 	const remainingWordsCount = remainingWords.length;
 
@@ -120,17 +123,22 @@ export const parseTextWithPressedKeys = ({
 		.flatMap((word) => word.characters.map((character) => character))
 		.filter((character) => character.status === "success");
 	const characterAccuracy =
-		successCharactersCount.length / totalPressedCharactersCount;
+		totalPressedCharactersCount > 0
+			? successCharactersCount.length / totalPressedCharactersCount
+			: 0;
 
 	const successTypedWordsCount = parsedWords.filter(
 		(word) => word.status === "success",
 	).length;
-	const wordsAccuracy = successTypedWordsCount / typedWordsCount;
+	const wordsAccuracy =
+		typedWordsCount > 0 ? successTypedWordsCount / typedWordsCount : 0;
 
 	return {
 		words: parsedWords,
 		metrics: {
 			typingIndex,
+
+			totalWordsCount,
 			remainingWordsCount,
 
 			characterAccuracy,

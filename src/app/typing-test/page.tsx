@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { TypingMetricsHeader } from "~/components/molecules/typing-metrics-header";
 import { Character } from "~/components/typing/character";
 import { Paragraph } from "~/components/typing/paragraph";
 import { Word } from "~/components/typing/word";
@@ -45,16 +46,19 @@ export default function TypingTestPage() {
 	useKeyPress({ onKeyPress });
 
 	return (
-		<div className="flex h-screen w-screen items-center justify-center">
-			<Paragraph>
-				{words.map(({ characters }, i1) => (
-					<Word key={i1}>
-						{characters.map(({ character, status }, i2) => (
-							<Character character={character} status={status} key={i2} />
-						))}
-					</Word>
-				))}
-			</Paragraph>
-		</div>
+		<main className="">
+			<div className="mx-auto flex max-w-3xl flex-col gap-4">
+				<TypingMetricsHeader metrics={metrics} />
+				<Paragraph>
+					{words.map(({ characters }, i1) => (
+						<Word key={i1}>
+							{characters.map(({ character, status }, i2) => (
+								<Character character={character} status={status} key={i2} />
+							))}
+						</Word>
+					))}
+				</Paragraph>
+			</div>
+		</main>
 	);
 }
