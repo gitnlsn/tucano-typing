@@ -19,7 +19,7 @@ export default function TypingTestPage() {
 
 	const [pressedKeys, setPressedKeys] = useState<PressedKey[]>([]);
 
-	const { words } = parseTextWithPressedKeys({
+	const { words, metrics } = parseTextWithPressedKeys({
 		text: data?.text ?? "",
 		pressedKeys,
 	});
@@ -42,9 +42,7 @@ export default function TypingTestPage() {
 		setPressedKeys((current) => [...current, parsedKey.data]);
 	}, []);
 
-	useKeyPress({
-		onKeyPress,
-	});
+	useKeyPress({ onKeyPress });
 
 	return (
 		<div className="flex h-screen w-screen items-center justify-center">

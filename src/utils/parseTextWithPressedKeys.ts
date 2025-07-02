@@ -1,4 +1,5 @@
 import type { CharacterProps } from "~/components/typing/character";
+import type { Status } from "~/components/typing/status";
 import type { PressedKey } from "~/validation-schema/pressed-key";
 
 export interface ParseTextWithPressedKeysProps {
@@ -9,33 +10,66 @@ export interface ParseTextWithPressedKeysProps {
 export interface ParseTextWithPressedKeysOutput {
 	words: Array<{
 		characters: CharacterProps[];
+		status: Status;
 	}>;
-	typingIndex: number;
+	metrics: {
+		typingIndex: number;
+		remainingWordsCount: number;
+
+		characterAccuracy: number;
+		wordsAccuracy: number;
+
+		wordsPerMinute: number | null;
+	};
 }
+
+const defineStatus = (characters: CharacterProps[]): Status => {
+	if (characters.some((character) => character.status === "idle")) {
+		return "idle";
+	}
+	if (characters.some((character) => character.status === "error")) {
+		return "error";
+	}
+	if (characters.every((character) => character.status === "success")) {
+		return "success";
+	}
+	return "idle";
+};
 
 export const parseTextWithPressedKeys = ({
 	text,
 	pressedKeys,
 }: ParseTextWithPressedKeysProps): ParseTextWithPressedKeysOutput => {
-	const words = text.split(" ");
+	const words = text.split(" ").map((word) => `${word} `);
 
+	// 1. Parse words algorithm
 	let index = 0;
+	let backspaceCount = 0;
 
-	const parsedWords = words.map<{ characters: CharacterProps[] }>((word) => {
+	const parsedWords = words.map<{
+		characters: CharacterProps[];
+		status: Status;
+	}>((word) => {
 		const parsedCharacters: CharacterProps[] = [];
 		const characters = word.split("");
 
-		for (const c of characters) {
-			const pressedKey = pressedKeys[index];
+		characters.forEach((c, i) => {
+			const indexD = index - backspaceCount;
+			const pressedKey = pressedKeys[indexD];
 
-			if (index === pressedKeys.length) {
+			if (pressedKey?.key === "Backspace") {
+				backspaceCount++;
+				return;
+			}
+
+			if (indexD === pressedKeys.length) {
 				parsedCharacters.push({
 					character: c,
 					status: "typing",
 				});
 
 				index++;
-				continue;
+				return;
 			}
 
 			if (!pressedKey) {
@@ -45,30 +79,64 @@ export const parseTextWithPressedKeys = ({
 				});
 
 				index++;
-				continue;
+				return;
 			}
 
-			parsedCharacters.push({
+			parsedCharacters[i] = {
 				character: c,
 				status: pressedKey.key === c ? "success" : "error",
-			});
+			};
 			index++;
-		}
-
-		parsedCharacters.push({
-			character: " ",
-			status: "idle",
 		});
-
-		index++;
 
 		return {
 			characters: parsedCharacters,
+			status: defineStatus(parsedCharacters),
 		};
 	});
 
+	// 2. Calculate remaining words
+	const typingIndex = pressedKeys.length;
+
+	const remainingWords = parsedWords.filter((word) => word.status === "idle");
+	const remainingWordsCount = remainingWords.length;
+
+	// 3. Calculate speed
+	const startTime = pressedKeys[0]?.timestamp;
+	const endTime = pressedKeys[pressedKeys.length - 1]?.timestamp;
+	const duration =
+		startTime && endTime
+			? (endTime.getTime() - startTime.getTime()) / (1000 * 60)
+			: null;
+
+	const typedWordsCount = parsedWords.filter(
+		(word) => word.status !== "idle",
+	).length;
+	const wordsPerMinute =
+		duration !== null && duration !== 0 ? typedWordsCount / duration : null;
+
+	const totalPressedCharactersCount = pressedKeys.length;
+	const successCharactersCount = parsedWords
+		.flatMap((word) => word.characters.map((character) => character))
+		.filter((character) => character.status === "success");
+	const characterAccuracy =
+		successCharactersCount.length / totalPressedCharactersCount;
+
+	const successTypedWordsCount = parsedWords.filter(
+		(word) => word.status === "success",
+	).length;
+	const wordsAccuracy = successTypedWordsCount / typedWordsCount;
+
 	return {
 		words: parsedWords,
-		typingIndex: pressedKeys.length,
+		metrics: {
+			typingIndex,
+			remainingWordsCount,
+
+			characterAccuracy,
+			wordsAccuracy,
+
+			wordsPerMinute,
+		},
 	};
 };

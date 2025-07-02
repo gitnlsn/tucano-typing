@@ -1,5 +1,6 @@
 import { cva } from "class-variance-authority";
 import { cn } from "~/lib/utils";
+import type { Status } from "./status";
 
 const characterVariants = cva("m-[1px] p-[3px] font-mono", {
 	variants: {
@@ -23,7 +24,7 @@ const characterVariants = cva("m-[1px] p-[3px] font-mono", {
 
 export interface CharacterProps {
 	character: string;
-	status: "success" | "error" | "idle" | "typing";
+	status: Status;
 }
 
 export const Character = ({ status, character }: CharacterProps) => {
