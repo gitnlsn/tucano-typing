@@ -11,6 +11,7 @@
 		"db:update": "npm run db:push && npm run db:generate",
 		"db:studio": "prisma studio",
 		"dev": "next dev --turbo",
+		"postinstall": "npx prisma generate",
 		"prisma:generate": "npm run db:generate",
 		"preview": "next build && next start",
 		"start": "next start",
